@@ -1,5 +1,7 @@
 package com.freniche.twitter;
 
+import twitter4j.AsyncTwitter;
+import twitter4j.AsyncTwitterFactory;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -100,5 +102,31 @@ public class TwitterHelper {
 		return twitterStream;
 
 	}
+	
+	public Twitter getTwitter() {
+		twitter = (new TwitterFactory()).getInstance();
+		twitter.setOAuthConsumer(TwitterConsts.CONSUMER_KEY, TwitterConsts.CONSUMER_SECRET);
 
+		twitter.setOAuthAccessToken(loadAccessToken());
+		
+		return twitter;
+	}
+	
+	private AccessToken loadAccessToken() {
+		String oauthAccessToken = mSharedPreferences.getString(TwitterConsts.PREF_KEY_TOKEN, "");
+		String oAuthAccessTokenSecret = mSharedPreferences.getString(TwitterConsts.PREF_KEY_SECRET, "");
+
+		return new AccessToken(oauthAccessToken, oAuthAccessTokenSecret);
+	}
+
+	public AsyncTwitter getAsyncTwitter() {
+		AsyncTwitterFactory factory = new AsyncTwitterFactory();
+		AsyncTwitter asyncTwitter = factory.getInstance();
+		
+		asyncTwitter.setOAuthConsumer(TwitterConsts.CONSUMER_KEY, TwitterConsts.CONSUMER_SECRET);
+		asyncTwitter.setOAuthAccessToken(loadAccessToken());
+		
+		return asyncTwitter;
+	}
+	
 }

@@ -8,6 +8,7 @@ import twitter4j.TwitterStream;
 import twitter4j.User;
 import twitter4j.UserList;
 import twitter4j.UserStreamListener;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -103,6 +104,10 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 
 		if (item.getItemId() == R.id.menu_tweet) {
 			Log.d("", "Tweet");
+			
+			Intent intent = new Intent(this, TweetActivity.class);
+			startActivity(intent);
+			
 			return true;
 		}
 		

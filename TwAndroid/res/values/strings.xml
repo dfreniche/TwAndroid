@@ -12,6 +12,7 @@
     <string name="menu_tweet">Tweet</string>
     <string name="menu_mentions">"@"</string>
     <string name="menu_dm">DM</string>
-    <string name="menu_config">DM</string>
+    <string name="menu_config">Config</string>
+    <string name="title_activity_tweet">TweetActivity</string>
 
 </resources>
