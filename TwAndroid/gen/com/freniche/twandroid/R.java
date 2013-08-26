@@ -952,12 +952,16 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040036;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f040026;
         public static final int getTweet=0x7f040033;
         public static final int homeAsUp=0x7f040006;
         public static final int listMode=0x7f040002;
+        public static final int menu_config=0x7f04003a;
+        public static final int menu_dm=0x7f040039;
+        public static final int menu_home=0x7f040036;
+        public static final int menu_mentions=0x7f040038;
+        public static final int menu_tweet=0x7f040037;
         public static final int normal=0x7f040001;
         public static final int scrollView=0x7f040034;
         public static final int showCustom=0x7f040008;
@@ -1046,6 +1050,11 @@ containing a value of this type.
         public static final int hello_world=0x7f09000f;
         public static final int label_connect=0x7f090011;
         public static final int label_disconnect=0x7f090010;
+        public static final int menu_config=0x7f090017;
+        public static final int menu_dm=0x7f090016;
+        public static final int menu_home=0x7f090013;
+        public static final int menu_mentions=0x7f090015;
+        public static final int menu_tweet=0x7f090014;
         public static final int title_activity_main=0x7f090012;
     }
     public static final class style {

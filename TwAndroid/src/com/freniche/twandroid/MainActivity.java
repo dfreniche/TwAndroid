@@ -11,6 +11,7 @@ import twitter4j.UserStreamListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -86,13 +87,43 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		getSupportMenuInflater().inflate(R.menu.main, menu);
 
-		menu.add("Send mail")
-		.setIcon(android.R.drawable.ic_dialog_email)
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		if (item.getItemId() == R.id.menu_home) {
+			Log.d("", "Home");
+			return true;
+		}
+
+		if (item.getItemId() == R.id.menu_tweet) {
+			Log.d("", "Tweet");
+			return true;
+		}
+		
+		if (item.getItemId() == R.id.menu_mentions) {
+			Log.d("", "Mentions");
+			return true;
+		}
+		
+		if (item.getItemId() == R.id.menu_dm) {
+			Log.d("", "DMs");
+			return true;
+		}
+		
+		if (item.getItemId() == R.id.menu_config) {
+			Log.d("", "Config");
+			return true;
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -257,7 +288,7 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 			} else if (mode[0] == MODE_RECONNECT) {
 				mTwitterHelper.handleOauthCallback(mUri);
 			}
-			
+
 			return null;
 		}
 
