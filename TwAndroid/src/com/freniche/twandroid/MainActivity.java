@@ -26,11 +26,8 @@ import com.freniche.twitter.TwitterHelper;
 
 public class MainActivity extends SherlockActivity implements OnClickListener {
 	private static final String TAG = "T4JSample";
-	private static final Integer MODE_CONNECT_FIRST_TIME = 1;
-	private static final Integer MODE_RECONNECT = 2;
 
 	private Uri mUri;
-	private Button buttonLogin;
 	private Button getTweetButton;
 	private TextView tweetText;
 	private ScrollView scrollView;
@@ -52,8 +49,7 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		tweetText =(TextView)findViewById(R.id.tweetText);
 		getTweetButton = (Button)findViewById(R.id.getTweet);
 		getTweetButton.setOnClickListener(this);
-		buttonLogin = (Button) findViewById(R.id.twitterLogin);
-		buttonLogin.setOnClickListener(this);
+		
 
 		System.out.println("On create");
 
@@ -123,6 +119,10 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		
 		if (item.getItemId() == R.id.menu_config) {
 			Log.d("", "Config");
+			
+			Intent intent = new Intent(this, ConfigActivity.class);
+			startActivity(intent);
+			
 			return true;
 		}
 		
@@ -284,25 +284,6 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		twitterStream.user();
 	}
 
-	private class ConnectTwitter extends AsyncTask<Integer, Void, Void> {
-		@Override
-
-		protected Void doInBackground(Integer... mode) {
-			if (mode[0] == MODE_CONNECT_FIRST_TIME) {
-				mTwitterHelper.askOAuth(MainActivity.this);
-			} else if (mode[0] == MODE_RECONNECT) {
-				mTwitterHelper.handleOauthCallback(mUri);
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			checkConnected();
-
-		}
-	}
+	
 
 }

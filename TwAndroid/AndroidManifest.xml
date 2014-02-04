@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -38,6 +38,10 @@
         <activity
             android:name="com.freniche.twandroid.TweetActivity"
             android:label="@string/title_activity_tweet" >
+        </activity>
+        <activity
+            android:name="com.freniche.twandroid.ConfigActivity"
+            android:label="@string/title_activity_config" >
         </activity>
     </application>
 

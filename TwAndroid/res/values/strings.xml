@@ -14,5 +14,6 @@
     <string name="menu_dm">DM</string>
     <string name="menu_config">Config</string>
     <string name="title_activity_tweet">TweetActivity</string>
+    <string name="title_activity_config">Config Twitter Account</string>
 
 </resources>
