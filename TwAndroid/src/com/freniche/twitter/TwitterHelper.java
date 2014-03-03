@@ -1,5 +1,6 @@
 package com.freniche.twitter;
 
+
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
 import twitter4j.Twitter;
@@ -59,8 +60,8 @@ public class TwitterHelper {
 
 	public void askOAuth(Context context) {
 		ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-		configurationBuilder.setOAuthConsumerKey(TwitterConsts.CONSUMER_KEY);
-		configurationBuilder.setOAuthConsumerSecret(TwitterConsts.CONSUMER_SECRET);
+		configurationBuilder.setOAuthConsumerKey(TwitterPrivateConsts.CONSUMER_KEY);
+		configurationBuilder.setOAuthConsumerSecret(TwitterPrivateConsts.CONSUMER_SECRET);
 		Configuration configuration = configurationBuilder.build();
 		twitter = new TwitterFactory(configuration).getInstance();
 
@@ -92,8 +93,8 @@ public class TwitterHelper {
 
 		ConfigurationBuilder confbuilder = new ConfigurationBuilder();
 		Configuration conf = confbuilder
-				.setOAuthConsumerKey(TwitterConsts.CONSUMER_KEY)
-				.setOAuthConsumerSecret(TwitterConsts.CONSUMER_SECRET)
+				.setOAuthConsumerKey(TwitterPrivateConsts.CONSUMER_KEY)
+				.setOAuthConsumerSecret(TwitterPrivateConsts.CONSUMER_SECRET)
 				.setOAuthAccessToken(oauthAccessToken)
 				.setOAuthAccessTokenSecret(oAuthAccessTokenSecret)
 				.build();
@@ -105,7 +106,7 @@ public class TwitterHelper {
 	
 	public Twitter getTwitter() {
 		twitter = (new TwitterFactory()).getInstance();
-		twitter.setOAuthConsumer(TwitterConsts.CONSUMER_KEY, TwitterConsts.CONSUMER_SECRET);
+		twitter.setOAuthConsumer(TwitterPrivateConsts.CONSUMER_KEY, TwitterPrivateConsts.CONSUMER_SECRET);
 
 		twitter.setOAuthAccessToken(loadAccessToken());
 		
@@ -123,7 +124,7 @@ public class TwitterHelper {
 		AsyncTwitterFactory factory = new AsyncTwitterFactory();
 		AsyncTwitter asyncTwitter = factory.getInstance();
 		
-		asyncTwitter.setOAuthConsumer(TwitterConsts.CONSUMER_KEY, TwitterConsts.CONSUMER_SECRET);
+		asyncTwitter.setOAuthConsumer(TwitterPrivateConsts.CONSUMER_KEY, TwitterPrivateConsts.CONSUMER_SECRET);
 		asyncTwitter.setOAuthAccessToken(loadAccessToken());
 		
 		return asyncTwitter;

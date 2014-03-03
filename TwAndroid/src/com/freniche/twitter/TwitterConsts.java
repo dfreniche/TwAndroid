@@ -1,8 +1,7 @@
 package com.freniche.twitter;
 
 public class TwitterConsts {
-	static String CONSUMER_KEY = "***REMOVED***";
-	static String CONSUMER_SECRET = "***REMOVED***";
+	
 
 	static String PREFERENCE_NAME = "twitter_oauth";
 	static final String PREF_KEY_SECRET = "oauth_token_secret";

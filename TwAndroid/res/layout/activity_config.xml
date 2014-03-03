@@ -8,18 +8,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ConfigActivity" >
 
+    
     <Button
         android:id="@+id/twitterLogin"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </Button>
-
-    <Button
-        android:id="@+id/getTweet"
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="start streaming" >
+        android:enabled="true"
+        android:text="Connect Twitter" >
     </Button>
 
 </RelativeLayout>

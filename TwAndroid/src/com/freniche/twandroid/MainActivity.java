@@ -9,8 +9,6 @@ import twitter4j.User;
 import twitter4j.UserList;
 import twitter4j.UserStreamListener;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,77 +20,48 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.freniche.twitter.TwitterHelper;
+import com.freniche.twandroid.ConfigActivity.ConnectTwitter;
 
-public class MainActivity extends SherlockActivity implements OnClickListener {
+public class MainActivity extends SherlockActivity {
 	private static final String TAG = "T4JSample";
 
-	private Uri mUri;
-	private Button getTweetButton;
 	private TextView tweetText;
 	private ScrollView scrollView;
 
-	private static TwitterStream twitterStream;
 	private boolean running = false;
-
-	private TwitterHelper mTwitterHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		mTwitterHelper = new TwitterHelper(this);
-
-
 		scrollView = (ScrollView)findViewById(R.id.scrollView);
 		tweetText =(TextView)findViewById(R.id.tweetText);
-		getTweetButton = (Button)findViewById(R.id.getTweet);
-		getTweetButton.setOnClickListener(this);
 		
 
 		System.out.println("On create");
 
-		/**
-		 * Handle OAuth Callback
-		 */
-		mUri = getIntent().getData();
-		(new ConnectTwitter()).execute(MODE_RECONNECT);
-
-
+		
 	}
 
 	protected void onResume() {
 		super.onResume();
 		System.out.println("On resume");
 
-		checkConnected();
+		startStreamingTimeline();
+
 	}
 
-	private void checkConnected() {
-		if (mTwitterHelper.isConnected()) {
-
-			twitterStream = mTwitterHelper.createNewTwitterStream();
-
-			buttonLogin.setText(R.string.label_disconnect);
-			getTweetButton.setEnabled(true);
-		} else {
-			buttonLogin.setText(R.string.label_connect);
-		}
-	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.main, menu);
 
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		
+	public boolean onOptionsItemSelected(MenuItem item) {		
 		if (item.getItemId() == R.id.menu_home) {
 			Log.d("", "Home");
 			return true;
@@ -128,7 +97,7 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		
 		return true;
 	}
-	
+	/*
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -153,9 +122,9 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 			break;
 		}
 	}
-
+*/
 	private void stopStreamingTimeline() {
-		twitterStream.shutdown();
+		Globals.twitterStream.shutdown();
 	}
 
 	public void startStreamingTimeline() {
@@ -280,8 +249,11 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 
 			}
 		};
-		twitterStream.addListener(listener);
-		twitterStream.user();
+		if (Globals.getSharedTwitterHelper(getApplicationContext()).isConnected()) {
+			Globals.twitterStream.addListener(listener);
+			Globals.twitterStream.user();
+		}
+		
 	}
 
 	
