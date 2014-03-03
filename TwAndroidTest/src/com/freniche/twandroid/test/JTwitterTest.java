@@ -18,9 +18,9 @@ public class JTwitterTest extends AndroidTestCase {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
 		  .setOAuthConsumerKey("dQxGqAiuZ26E838alHRUTQ")
-		  .setOAuthConsumerSecret("***REMOVED***")
-		  .setOAuthAccessToken("***REMOVED***")
-		  .setOAuthAccessTokenSecret("***REMOVED***");
+		  .setOAuthConsumerSecret("JPniCBP8DpYH4EXv8cqycaorFrZj05JaVt5voZg7jbo")
+		  .setOAuthAccessToken("1445532559-DrSJvxZ6BhQFwwgdA7nsCXeSBaA9kMJmPOat6kJ")
+		  .setOAuthAccessTokenSecret("EOwUpjZmIYll2FfvNwE7yuhddlUFsICFuSbx7QwO3A");
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		
