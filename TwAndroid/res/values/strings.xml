@@ -15,5 +15,5 @@
     <string name="menu_config">Config</string>
     <string name="title_activity_tweet">TweetActivity</string>
     <string name="title_activity_config">Config Twitter Account</string>
-
+	<string name="twitter_not_connected">Twitter not connected</string>
 </resources>

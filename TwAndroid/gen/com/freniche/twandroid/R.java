@@ -952,7 +952,7 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f04003b;
+        public static final int action_settings=0x7f040040;
         public static final int button_attach_image=0x7f040039;
         public static final int button_send_tweet=0x7f040037;
         public static final int disableHome=0x7f040009;
@@ -961,11 +961,11 @@ containing a value of this type.
         public static final int homeAsUp=0x7f040006;
         public static final int imageView1=0x7f04003a;
         public static final int listMode=0x7f040002;
-        public static final int menu_config=0x7f040040;
-        public static final int menu_dm=0x7f04003f;
-        public static final int menu_home=0x7f04003c;
-        public static final int menu_mentions=0x7f04003e;
-        public static final int menu_tweet=0x7f04003d;
+        public static final int menu_config=0x7f04003f;
+        public static final int menu_dm=0x7f04003e;
+        public static final int menu_home=0x7f04003b;
+        public static final int menu_mentions=0x7f04003d;
+        public static final int menu_tweet=0x7f04003c;
         public static final int normal=0x7f040001;
         public static final int scrollView=0x7f040033;
         public static final int showCustom=0x7f040008;
@@ -1011,9 +1011,8 @@ containing a value of this type.
         public static final int sherlock_spinner_item=0x7f030019;
     }
     public static final class menu {
-        public static final int config=0x7f0b0000;
-        public static final int main=0x7f0b0001;
-        public static final int tweet=0x7f0b0002;
+        public static final int main=0x7f0b0000;
+        public static final int tweet=0x7f0b0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1068,6 +1067,7 @@ containing a value of this type.
         public static final int title_activity_config=0x7f090019;
         public static final int title_activity_main=0x7f090012;
         public static final int title_activity_tweet=0x7f090018;
+        public static final int twitter_not_connected=0x7f09001a;
     }
     public static final class style {
         /** 

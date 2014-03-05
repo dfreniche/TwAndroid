@@ -18,14 +18,23 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 
-
+/**
+ * Helper class to connect to Twitter using Twitter4J library
+ * @author dfreniche
+ *
+ */
 public class TwitterHelper {
 	private static Twitter twitter;
 	private static RequestToken requestToken;
 	private static SharedPreferences mSharedPreferences;
 
+	/**
+	 * 
+	 * @param context inject a valid context
+	 */
 	public TwitterHelper(Context context) {
 		mSharedPreferences = context.getSharedPreferences(TwitterConsts.PREFERENCE_NAME, Context.MODE_PRIVATE);
 	}
@@ -34,7 +43,6 @@ public class TwitterHelper {
 	/**
 	 * Handle OAuth Callback
 	 */
-
 	public void handleOauthCallback(Uri uri) {
 		if (uri != null && uri.toString().startsWith(TwitterConsts.CALLBACK_URL)) {
 			String verifier = uri.getQueryParameter(TwitterConsts.IEXTRA_OAUTH_VERIFIER);
@@ -67,7 +75,6 @@ public class TwitterHelper {
 
 		try {
 			requestToken = twitter.getOAuthRequestToken(TwitterConsts.CALLBACK_URL);
-			// Toast.makeText(this, "Please authorize this app!", Toast.LENGTH_LONG).show();
 			context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(requestToken.getAuthenticationURL())));
 		} catch (TwitterException e) {
 			e.printStackTrace();

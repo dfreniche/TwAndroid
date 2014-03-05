@@ -4,29 +4,29 @@ import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
-import twitter4j.TwitterStream;
 import twitter4j.User;
 import twitter4j.UserList;
 import twitter4j.UserStreamListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.freniche.twandroid.ConfigActivity.ConnectTwitter;
+import com.freniche.twitter.ConnectTwitter;
 
 public class MainActivity extends SherlockActivity {
 	private static final String TAG = "T4JSample";
 
 	private TextView tweetText;
 	private ScrollView scrollView;
+	private Uri mUri;
 
 	private boolean running = false;
 
@@ -39,14 +39,20 @@ public class MainActivity extends SherlockActivity {
 		tweetText =(TextView)findViewById(R.id.tweetText);
 		
 
-		System.out.println("On create");
+		Log.w("", "On create");
+
+		/**
+		 * Handle OAuth Callback
+		 */
+		mUri = getIntent().getData();
+		(new ConnectTwitter(this, mUri)).execute(Globals.MODE_RECONNECT);
 
 		
 	}
 
 	protected void onResume() {
 		super.onResume();
-		System.out.println("On resume");
+		Log.w(getPackageName(), "On resume");
 
 		startStreamingTimeline();
 
@@ -63,12 +69,12 @@ public class MainActivity extends SherlockActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {		
 		if (item.getItemId() == R.id.menu_home) {
-			Log.d("", "Home");
+			Log.w("", "Home");
 			return true;
 		}
 
 		if (item.getItemId() == R.id.menu_tweet) {
-			Log.d("", "Tweet");
+			Log.w("", "Tweet");
 			
 			Intent intent = new Intent(this, TweetActivity.class);
 			startActivity(intent);
@@ -77,17 +83,17 @@ public class MainActivity extends SherlockActivity {
 		}
 		
 		if (item.getItemId() == R.id.menu_mentions) {
-			Log.d("", "Mentions");
+			Log.w("", "Mentions");
 			return true;
 		}
 		
 		if (item.getItemId() == R.id.menu_dm) {
-			Log.d("", "DMs");
+			Log.w("", "DMs");
 			return true;
 		}
 		
 		if (item.getItemId() == R.id.menu_config) {
-			Log.d("", "Config");
+			Log.w("", "Config");
 			
 			Intent intent = new Intent(this, ConfigActivity.class);
 			startActivity(intent);
@@ -143,7 +149,7 @@ public class MainActivity extends SherlockActivity {
 			@Override
 			public void onStatus(Status status) {
 				final String tweet = "@" + status.getUser().getScreenName() + " : " + status.getText() + "\n"; 
-				System.out.println(tweet);
+				Log.w(getPackageName(), tweet);
 				tweetText.post(new Runnable() {
 					@Override
 					public void run() {
@@ -249,9 +255,12 @@ public class MainActivity extends SherlockActivity {
 
 			}
 		};
+		
 		if (Globals.getSharedTwitterHelper(getApplicationContext()).isConnected()) {
 			Globals.twitterStream.addListener(listener);
 			Globals.twitterStream.user();
+		} else {
+			Toast.makeText(getApplicationContext(), getString(R.string.twitter_not_connected), Toast.LENGTH_LONG).show();
 		}
 		
 	}
