@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    <TextView
+        android:id="@+id/emptyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|bottom"
+        android:text="@string/empty_list_message"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tweetText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>

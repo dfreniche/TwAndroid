@@ -45,7 +45,7 @@ public class ConnectTwitter extends AsyncTask<Integer, Void, Void> {
 		Log.w("","checkConnected");
 		if (Globals.getSharedTwitterHelper(this.context).isConnected()) {
 
-			Globals.twitterStream = Globals.getSharedTwitterHelper(this.context).createNewTwitterStream();
+			//Globals.twitterStream = Globals.getSharedTwitterHelper(this.context).createNewTwitterStream();
 			Log.w("","checkConnected IS connected");
 
 		} 

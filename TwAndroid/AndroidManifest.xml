@@ -43,6 +43,10 @@
             android:name="com.freniche.twandroid.ConfigActivity"
             android:label="@string/title_activity_config" >
         </activity>
+        <activity
+            android:name="com.freniche.twandroid.DirectMessagesActivity"
+            android:label="@string/title_activity_direct_messages" >
+        </activity>
     </application>
 
 </manifest>

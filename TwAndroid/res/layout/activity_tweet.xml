@@ -8,17 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TweetActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
 
     <EditText
         android:id="@+id/text_tweet"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:hint="@string/hintTweet"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:ems="10" />
@@ -28,18 +23,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText1"
+        android:layout_alignLeft="@+id/text_tweet"
         android:layout_marginBottom="82dp"
-        android:text="Tweet" />
+        android:text="@string/tweet" />
 
     <Button
         android:id="@+id/button_attach_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_send_tweet"
-        android:layout_alignBottom="@+id/button_send_tweet"
-        android:layout_alignLeft="@+id/text_tweet"
-        android:text="Button" />
+        android:layout_toRightOf="@id/button_send_tweet"
+        android:layout_alignTop="@id/button_send_tweet"
+        android:text="@string/attachImage" />
 
     <ImageView
         android:id="@+id/imageView1"

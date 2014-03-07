@@ -15,5 +15,11 @@
     <string name="menu_config">Config</string>
     <string name="title_activity_tweet">TweetActivity</string>
     <string name="title_activity_config">Config Twitter Account</string>
-	<string name="twitter_not_connected">Twitter not connected</string>
+    <string name="twitter_not_connected">Twitter not connected</string>
+    <string name="empty_list_message">Waiting for tweets!</string>
+    <string name="hintTweet">Tweet something...</string>
+    <string name="tweet">Tweet</string>
+    <string name="attachImage">Attach Image</string>
+    <string name="title_activity_direct_messages">DirectMessagesActivity</string>
+
 </resources>

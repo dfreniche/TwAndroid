@@ -1,5 +1,8 @@
 package com.freniche.twandroid;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -7,12 +10,17 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.User;
 import twitter4j.UserList;
 import twitter4j.UserStreamListener;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ScrollView;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,20 +32,25 @@ import com.freniche.twitter.ConnectTwitter;
 public class MainActivity extends SherlockActivity {
 	private static final String TAG = "T4JSample";
 
-	private TextView tweetText;
-	private ScrollView scrollView;
 	private Uri mUri;
-
 	private boolean running = false;
+
+	ListView mListView;
+	TweetsArrayAdapter mAdapter;
+	ArrayList<Status> mTweets;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		scrollView = (ScrollView)findViewById(R.id.scrollView);
-		tweetText =(TextView)findViewById(R.id.tweetText);
-		
+		mTweets = new ArrayList<Status>();
+
+		mListView = (ListView)findViewById(R.id.listview);
+		mListView.setEmptyView(findViewById(R.id.emptyMessage));
+
+		mAdapter = new TweetsArrayAdapter(this, mTweets);
+		mListView.setAdapter(mAdapter);
 
 		Log.w("", "On create");
 
@@ -47,7 +60,7 @@ public class MainActivity extends SherlockActivity {
 		mUri = getIntent().getData();
 		(new ConnectTwitter(this, mUri)).execute(Globals.MODE_RECONNECT);
 
-		
+
 	}
 
 	protected void onResume() {
@@ -58,7 +71,7 @@ public class MainActivity extends SherlockActivity {
 
 	}
 
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main, menu);
@@ -70,37 +83,41 @@ public class MainActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {		
 		if (item.getItemId() == R.id.menu_home) {
 			Log.w("", "Home");
+
 			return true;
 		}
 
 		if (item.getItemId() == R.id.menu_tweet) {
 			Log.w("", "Tweet");
-			
+
 			Intent intent = new Intent(this, TweetActivity.class);
 			startActivity(intent);
-			
+
 			return true;
 		}
-		
+
 		if (item.getItemId() == R.id.menu_mentions) {
 			Log.w("", "Mentions");
 			return true;
 		}
-		
+
 		if (item.getItemId() == R.id.menu_dm) {
 			Log.w("", "DMs");
+			
+			Intent intent = new Intent(this, DirectMessagesActivity.class);
+			startActivity(intent);
 			return true;
 		}
-		
+
 		if (item.getItemId() == R.id.menu_config) {
 			Log.w("", "Config");
-			
+
 			Intent intent = new Intent(this, ConfigActivity.class);
 			startActivity(intent);
-			
+
 			return true;
 		}
-		
+
 		return true;
 	}
 	/*
@@ -128,12 +145,18 @@ public class MainActivity extends SherlockActivity {
 			break;
 		}
 	}
-*/
+	 */
 	private void stopStreamingTimeline() {
-		Globals.twitterStream.shutdown();
+		Globals.getTwitterStream().shutdown();
 	}
 
 	public void startStreamingTimeline() {
+		if (running) {
+			return;
+		}
+		
+		running = true;
+		
 		UserStreamListener listener = new UserStreamListener() {
 
 			@Override
@@ -147,16 +170,20 @@ public class MainActivity extends SherlockActivity {
 			}
 
 			@Override
-			public void onStatus(Status status) {
+			public void onStatus(final Status status) {
 				final String tweet = "@" + status.getUser().getScreenName() + " : " + status.getText() + "\n"; 
 				Log.w(getPackageName(), tweet);
-				tweetText.post(new Runnable() {
-					@Override
-					public void run() {
-						tweetText.append(tweet);
-						scrollView.fullScroll(View.FOCUS_DOWN);
+				//mTweets.add(status);
+				
+				mListView.post(new Runnable() {
+
+			        @Override
+			        public void run() {
+			        	mAdapter.add(status);
+			        	mAdapter.notifyDataSetChanged();
 					}
-				});
+			    });
+				
 			}
 
 			@Override
@@ -255,16 +282,74 @@ public class MainActivity extends SherlockActivity {
 
 			}
 		};
-		
+
 		if (Globals.getSharedTwitterHelper(getApplicationContext()).isConnected()) {
-			Globals.twitterStream.addListener(listener);
-			Globals.twitterStream.user();
+			Globals.getTwitterStream().addListener(listener);
+			Globals.getTwitterStream().user();
 		} else {
 			Toast.makeText(getApplicationContext(), getString(R.string.twitter_not_connected), Toast.LENGTH_LONG).show();
 		}
-		
+
 	}
 
-	
+
+	public class TweetsArrayAdapter extends ArrayAdapter<Status> {
+		private final Context context;
+		private ArrayList<Status> values;
+
+		public TweetsArrayAdapter(Context context, ArrayList<Status> values) {
+			super(context, R.layout.tweet_row_layout, values);
+			this.context = context;
+			this.values = values;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View rowView = inflater.inflate(R.layout.tweet_row_layout, parent, false);
+			TextView textView = (TextView) rowView.findViewById(R.id.label);
+			ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+			textView.setText(values.get(position).getUser().getName()+ " "+ values.get(position).getText());
+			// change the icon for Windows and iPhone
+			//imageView.setImageURI(new Uri());
+
+			return rowView;
+		}
+		/*
+		@Override
+		public void add(Status newStatus) {
+		    values.add(newStatus);
+		    notifyDataSetChanged();
+		}
+
+		@Override
+		public void addAll(Collection<? extends Status> newDailyDatas) {
+		    values.addAll(newDailyDatas);
+		    notifyDataSetChanged();
+		}
+
+		@Override
+		public void insert(Status newDailyData, int index) {
+			values.add(index, newDailyData);
+		    notifyDataSetChanged();
+		}
+
+		@Override
+		public void remove(Status newDailyData) {
+			values.remove(newDailyData);
+		    notifyDataSetChanged();
+		}
+
+		@Override
+		public void clear() {
+			values.clear();
+		    notifyDataSetChanged();
+		}
+		*/
+	} 
+
+
+
 
 }

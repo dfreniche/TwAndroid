@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -34,6 +35,10 @@ public class TweetActivity extends SherlockActivity {
 
 		if (mTwitterHelper.isConnected()) {
 			mTwitter = mTwitterHelper.getTwitter();
+		} else {
+			finish();
+			Toast.makeText(getApplicationContext(), R.string.twitter_not_connected, Toast.LENGTH_LONG).show();
+			
 		}
 		mTweetText = (EditText)findViewById(R.id.text_tweet);
 
@@ -41,10 +46,31 @@ public class TweetActivity extends SherlockActivity {
 		mSendTweetButton.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
+				/*
+				try {
+					Globals.getSharedTwitterHelper(getApplicationContext()).getTwitter().updateStatus(mTweetText.getText().toString());
+					Toast.makeText(getApplicationContext(), "Successfully updated the status to [" +
+							mTweetText.getText().toString() + "].", Toast.LENGTH_SHORT).show();
+
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+							*/	
+				
 				TwitterListener listener = new TwitterAdapter() {
-					@Override public void updatedStatus(Status status) {
-						System.out.println("Successfully updated the status to [" +
-								status.getText() + "].");
+					@Override public void updatedStatus(final Status status) {
+						finish();
+						mSendTweetButton.post(new Runnable() {
+							
+							@Override
+							public void run() {
+								Toast.makeText(getApplicationContext(), "Successfully updated the status to [" +
+										status.getText() + "].", Toast.LENGTH_SHORT).show();
+								finish();
+							}
+						});
+						
 					}
 
 					public void onException(TwitterException e, int method) {
@@ -56,7 +82,7 @@ public class TweetActivity extends SherlockActivity {
 				AsyncTwitter asyncTwitter = mTwitterHelper.getAsyncTwitter();
 				asyncTwitter.addListener(listener);
 				asyncTwitter.updateStatus(mTweetText.getText().toString());
-
+			
 
 			}
 		});
