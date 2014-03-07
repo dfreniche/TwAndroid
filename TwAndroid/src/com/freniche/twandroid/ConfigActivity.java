@@ -38,7 +38,9 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.freniche.twandroid.DirectMessagesActivity.DirectMessagesArrayAdapter;
 import com.freniche.twitter.ConnectTwitter;
 import com.freniche.twitter.TwitterHelper;
 
@@ -47,6 +49,7 @@ public class ConfigActivity extends Activity {
 	private Button buttonLogin;
 	private Uri mUri;
 	private TwitterHelper mTwitterHelper;
+	TextView mLabelInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class ConfigActivity extends Activity {
 		mUri = getIntent().getData();
 		(new ConnectTwitter(this, mUri)).execute(Globals.MODE_RECONNECT);
 
+		mLabelInfo = (TextView)findViewById(R.id.labelInfo);
 		
 		buttonLogin = (Button) findViewById(R.id.twitterLogin);
 		buttonLogin.setOnClickListener(new OnClickListener() {
@@ -70,6 +74,8 @@ public class ConfigActivity extends Activity {
 					buttonLogin.setText(R.string.label_connect);
 				} else {
 					(new ConnectTwitter(ConfigActivity.this, mUri)).execute(Globals.MODE_CONNECT_FIRST_TIME);
+					buttonLogin.setText(R.string.label_disconnect);
+
 					Log.w("","firstTime");
 
 				}				
@@ -79,27 +85,48 @@ public class ConfigActivity extends Activity {
 		mTwitterHelper = new TwitterHelper(this);
 
 		
-		AsyncTwitter asyncTwitter = mTwitterHelper.getAsyncTwitter();
-		asyncTwitter.addListener(new TwitterAdapter() {
-			String s = "";
+		if (Globals.getSharedTwitterHelper(this).isConnected()) {
+			buttonLogin.setText(R.string.label_disconnect);
 			
-			@Override
-			public void gotAccountSettings(AccountSettings settings) {
-				super.gotAccountSettings(settings);
-				s += "ScreenName:" + settings.getScreenName();
-				setTitle(s);
-			}
 			
-			@Override
-			public void gotRetweetsOfMe(ResponseList<Status> statuses) {
-				super.gotRetweetsOfMe(statuses);
-				s += "Statuses: "+ statuses.size();
-				setTitle(s);
-			}
+			AsyncTwitter asyncTwitter = mTwitterHelper.getAsyncTwitter();
+			asyncTwitter.addListener(new TwitterAdapter() {
+				String s = "";
+				
+				@Override
+				public void gotAccountSettings(AccountSettings settings) {
+					super.gotAccountSettings(settings);
+					s += "ScreenName:" + settings.getScreenName();
+					mLabelInfo.post(new Runnable() {
+				        @Override
+				        public void run() {
+							mLabelInfo.setText(s);
+						}
+				    });
+				}
+				
+				@Override
+				public void gotRetweetsOfMe(ResponseList<Status> statuses) {
+					super.gotRetweetsOfMe(statuses);
+					s += "Statuses: "+ statuses.size();
+					mLabelInfo.post(new Runnable() {
+				        @Override
+				        public void run() {
+							mLabelInfo.setText(s);
+						}
+				    });
+				}
+				
+			});
+			asyncTwitter.getRetweetsOfMe();
+			asyncTwitter.getAccountSettings();
 			
-		});
-		asyncTwitter.getRetweetsOfMe();
-		asyncTwitter.getAccountSettings();
+		} else {
+			buttonLogin.setText(R.string.label_connect);
+
+		}
+		
+		
 		
 
 	}
