@@ -155,7 +155,6 @@ public class MainActivity extends SherlockActivity {
 			return;
 		}
 		
-		running = true;
 		
 		UserStreamListener listener = new UserStreamListener() {
 
@@ -284,6 +283,8 @@ public class MainActivity extends SherlockActivity {
 		};
 
 		if (Globals.getSharedTwitterHelper(getApplicationContext()).isConnected()) {
+			running = true;
+
 			Globals.getTwitterStream().addListener(listener);
 			Globals.getTwitterStream().user();
 		} else {
