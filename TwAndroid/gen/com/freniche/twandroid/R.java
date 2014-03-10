@@ -1010,16 +1010,19 @@ containing a value of this type.
         public static final int activity_config=0x7f030015;
         public static final int activity_direct_messages=0x7f030016;
         public static final int activity_main=0x7f030017;
-        public static final int activity_tweet=0x7f030018;
-        public static final int dm_row_layout=0x7f030019;
-        public static final int sherlock_spinner_dropdown_item=0x7f03001a;
-        public static final int sherlock_spinner_item=0x7f03001b;
-        public static final int tweet_row_layout=0x7f03001c;
+        public static final int activity_mentions=0x7f030018;
+        public static final int activity_tweet=0x7f030019;
+        public static final int dm_row_layout=0x7f03001a;
+        public static final int row_mentions_layout=0x7f03001b;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001c;
+        public static final int sherlock_spinner_item=0x7f03001d;
+        public static final int tweet_row_layout=0x7f03001e;
     }
     public static final class menu {
         public static final int direct_messages=0x7f0b0000;
         public static final int main=0x7f0b0001;
-        public static final int tweet=0x7f0b0002;
+        public static final int mentions=0x7f0b0002;
+        public static final int tweet=0x7f0b0003;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1077,6 +1080,7 @@ containing a value of this type.
         public static final int title_activity_config=0x7f090019;
         public static final int title_activity_direct_messages=0x7f09001f;
         public static final int title_activity_main=0x7f090012;
+        public static final int title_activity_mentions=0x7f090020;
         public static final int title_activity_tweet=0x7f090018;
         public static final int tweet=0x7f09001d;
         public static final int twitter_not_connected=0x7f09001a;

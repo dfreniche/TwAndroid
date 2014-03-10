@@ -47,6 +47,10 @@
             android:name="com.freniche.twandroid.DirectMessagesActivity"
             android:label="@string/title_activity_direct_messages" >
         </activity>
+        <activity
+            android:name="com.freniche.twandroid.MentionsActivity"
+            android:label="@string/title_activity_mentions" >
+        </activity>
     </application>
 
 </manifest>

@@ -21,5 +21,6 @@
     <string name="tweet">Tweet</string>
     <string name="attachImage">Attach Image</string>
     <string name="title_activity_direct_messages">DirectMessagesActivity</string>
+    <string name="title_activity_mentions">MentionsActivity</string>
 
 </resources>

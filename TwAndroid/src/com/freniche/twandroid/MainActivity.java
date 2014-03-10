@@ -98,6 +98,10 @@ public class MainActivity extends SherlockActivity {
 
 		if (item.getItemId() == R.id.menu_mentions) {
 			Log.w("", "Mentions");
+			
+			Intent intent = new Intent(this, MentionsActivity.class);
+			startActivity(intent);
+			
 			return true;
 		}
 
