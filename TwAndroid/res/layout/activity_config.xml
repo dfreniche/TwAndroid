@@ -25,4 +25,33 @@
         android:textSize="20sp" >
     </TextView>
 
+    <RadioGroup
+        android:id="@+id/themeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/labelInfo"
+        android:layout_alignRight="@+id/twitterLogin"
+        android:layout_below="@+id/labelInfo" >
+
+        <RadioButton
+            android:id="@+id/themeLigth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/themeLigth" />
+
+        <RadioButton
+            android:id="@+id/themeDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/themeDark" />
+        
+         <RadioButton
+            android:id="@+id/themeApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/themeApp" />
+ 
+    </RadioGroup>
+
 </RelativeLayout>

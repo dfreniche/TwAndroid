@@ -11,6 +11,8 @@ public class Globals {
 	public static final Integer MODE_RECONNECT = 2;
 	private static TwitterStream twitterStream;
 
+	public static int defaultTheme = R.style.AppTheme;
+	
 	public static TwitterHelper getSharedTwitterHelper(Context ctx) {
 		if (twitterHelper == null) {
 			twitterHelper = new TwitterHelper(ctx);

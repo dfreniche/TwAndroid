@@ -25,5 +25,8 @@
     <string name="camera">Camera</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="emptySearch">Nothing found...</string>
-
+    <string name="themeLigth">Theme Ligth</string>
+    <string name="themeDark">Theme Dark</string>
+    <string name="themeApp">Theme App (default)</string>
+    
 </resources>

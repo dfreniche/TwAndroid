@@ -31,6 +31,8 @@ public class DirectMessagesActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(Globals.defaultTheme);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direct_messages);
 		

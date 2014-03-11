@@ -17,4 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="LightTheme" parent="@android:style/Theme.Light">
+    </style>
+
+    <style name="BlackTheme" parent="@android:style/Theme.Black">
+    </style>   
 </resources>

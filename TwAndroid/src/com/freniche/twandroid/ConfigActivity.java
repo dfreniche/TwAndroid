@@ -1,46 +1,22 @@
 package com.freniche.twandroid;
 
-import java.util.Map;
-
 import twitter4j.AccountSettings;
 import twitter4j.AsyncTwitter;
-import twitter4j.Category;
-import twitter4j.DirectMessage;
-import twitter4j.Friendship;
-import twitter4j.IDs;
-import twitter4j.Location;
-import twitter4j.OEmbed;
-import twitter4j.PagableResponseList;
-import twitter4j.Place;
-import twitter4j.QueryResult;
-import twitter4j.RateLimitStatus;
-import twitter4j.Relationship;
 import twitter4j.ResponseList;
-import twitter4j.SavedSearch;
-import twitter4j.SimilarPlaces;
 import twitter4j.Status;
-import twitter4j.Trends;
-import twitter4j.TwitterAPIConfiguration;
 import twitter4j.TwitterAdapter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterListener;
-import twitter4j.TwitterMethod;
-import twitter4j.User;
-import twitter4j.UserList;
-import twitter4j.api.HelpResources.Language;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.freniche.twandroid.DirectMessagesActivity.DirectMessagesArrayAdapter;
 import com.freniche.twitter.ConnectTwitter;
 import com.freniche.twitter.TwitterHelper;
 
@@ -50,9 +26,12 @@ public class ConfigActivity extends Activity {
 	private Uri mUri;
 	private TwitterHelper mTwitterHelper;
 	TextView mLabelInfo;
+	RadioGroup mThemeSelector;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(Globals.defaultTheme);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_config);
 		
@@ -60,8 +39,10 @@ public class ConfigActivity extends Activity {
 		 * Handle OAuth Callback
 		 */
 		mUri = getIntent().getData();
-		(new ConnectTwitter(this, mUri)).execute(Globals.MODE_RECONNECT);
-
+		if (mUri != null) {
+			(new ConnectTwitter(this, mUri)).execute(Globals.MODE_RECONNECT);
+		}
+		
 		mLabelInfo = (TextView)findViewById(R.id.labelInfo);
 		
 		buttonLogin = (Button) findViewById(R.id.twitterLogin);
@@ -127,8 +108,36 @@ public class ConfigActivity extends Activity {
 		}
 		
 		
-		
 
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		mThemeSelector = (RadioGroup)findViewById(R.id.themeGroup);
+		mThemeSelector.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@TargetApi(19)
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				Log.d("", "Theme changed");
+				if (checkedId == R.id.themeLigth) {
+				    getApplication().setTheme(R.style.LightTheme);
+				    Globals.defaultTheme = R.style.LightTheme;
+				} else if (checkedId == R.id.themeDark)  {
+				    getApplication().setTheme(R.style.BlackTheme);
+					Globals.defaultTheme = R.style.BlackTheme;
+
+				} else {
+				    getApplication().setTheme(R.style.AppTheme);
+					Globals.defaultTheme = R.style.AppTheme;				
+				}
+				if (android.os.Build.VERSION.SDK_INT > 11) {
+					recreate();
+				}
+			}
+		});
 	}
 	
 }
