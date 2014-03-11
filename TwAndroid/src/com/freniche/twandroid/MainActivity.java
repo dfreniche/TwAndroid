@@ -81,9 +81,11 @@ public class MainActivity extends SherlockActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {		
-		if (item.getItemId() == R.id.menu_home) {
+		if (item.getItemId() == R.id.menu_search) {
 			Log.w("", "Home");
-
+			Intent intent = new Intent(this, SearchActivity.class);
+			startActivity(intent);
+			
 			return true;
 		}
 

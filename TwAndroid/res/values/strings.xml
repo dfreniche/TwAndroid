@@ -23,5 +23,7 @@
     <string name="title_activity_direct_messages">DirectMessagesActivity</string>
     <string name="title_activity_mentions">MentionsActivity</string>
     <string name="camera">Camera</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="emptySearch">Nothing found...</string>
 
 </resources>

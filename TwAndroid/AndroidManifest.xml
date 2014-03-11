@@ -10,8 +10,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
- 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -51,6 +51,10 @@
         <activity
             android:name="com.freniche.twandroid.MentionsActivity"
             android:label="@string/title_activity_mentions" >
+        </activity>
+        <activity
+            android:name="com.freniche.twandroid.SearchActivity"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 
