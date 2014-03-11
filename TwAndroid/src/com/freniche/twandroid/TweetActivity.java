@@ -175,43 +175,6 @@ public class TweetActivity extends SherlockActivity {
 	        } 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getSupportMenuInflater().inflate(R.menu.main, menu);
-
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {		
-		if (item.getItemId() == R.id.menu_home) {
-			Log.d("", "Home");
-			return true;
-		}
-
-		if (item.getItemId() == R.id.menu_tweet) {
-			Log.d("", "Tweet");
-			return true;
-		}
-
-		if (item.getItemId() == R.id.menu_mentions) {
-			Log.d("", "Mentions");
-			return true;
-		}
-
-		if (item.getItemId() == R.id.menu_dm) {
-			Log.d("", "DMs");
-			return true;
-		}
-
-		if (item.getItemId() == R.id.menu_config) {
-			Log.d("", "Config");
-			return true;
-		}
-
-		return true;
-	}
 	
 	public void uploadPic(File file, String message,Twitter twitter) throws Exception  {
 	    try{
