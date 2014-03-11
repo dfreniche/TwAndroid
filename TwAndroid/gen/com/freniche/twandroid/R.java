@@ -1028,8 +1028,7 @@ containing a value of this type.
         public static final int direct_messages=0x7f0b0000;
         public static final int main=0x7f0b0001;
         public static final int mentions=0x7f0b0002;
-        public static final int search=0x7f0b0003;
-        public static final int tweet=0x7f0b0004;
+        public static final int tweet=0x7f0b0003;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

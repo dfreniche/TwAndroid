@@ -1,7 +1,7 @@
 package com.freniche.twandroid;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
@@ -308,6 +308,12 @@ public class MainActivity extends SherlockActivity {
 			super(context, R.layout.tweet_row_layout, values);
 			this.context = context;
 			this.values = values;
+		}
+		
+		public TweetsArrayAdapter(Context context, List<Status> values) {
+			super(context, R.layout.tweet_row_layout, values);
+			this.context = context;
+			this.values = (ArrayList<Status>) values;
 		}
 
 		@Override
